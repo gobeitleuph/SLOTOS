@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.structure;
 
 import java.util.Collection;
 import java.util.HashMap;
