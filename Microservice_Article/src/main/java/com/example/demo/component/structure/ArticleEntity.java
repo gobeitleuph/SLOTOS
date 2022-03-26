@@ -1,4 +1,4 @@
-package com.example.demo.structure;
+package com.example.demo.component.structure;
 
 import java.io.Serializable;
 
@@ -10,9 +10,10 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name="articles")
+@Table(name = "articles")
 @Entity
 @Data
 @NoArgsConstructor
@@ -22,8 +23,8 @@ public class ArticleEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String manufactor;
 	private String name;
+	private String manufactor;
 	private float price;
 	
 }

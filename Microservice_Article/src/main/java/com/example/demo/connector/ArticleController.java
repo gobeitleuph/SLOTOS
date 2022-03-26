@@ -1,32 +1,24 @@
-package com.example.demo.behaviour;
+package com.example.demo.connector;
 
-import java.util.Set;
-
-
-import com.example.demo.structure.ArticleEntity;
+import com.example.demo.component.structure.ArticleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 
 @RestController
 @RequestMapping("/article") //gibt den Pfad an, unter dem der Microservice zu erreichen ist
-public class MicroserviceArticle_Controller {
+public class ArticleController {
 	
 @Autowired
-MicroserviceArticle_Service service;
-	
+private MicroserviceArticleService service;
 	@GetMapping("/{article_id}")
 	public ResponseEntity<ArticleEntity> get_Article(@PathVariable("article_id") int article_id){
 		
