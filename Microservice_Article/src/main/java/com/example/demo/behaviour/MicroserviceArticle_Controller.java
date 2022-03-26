@@ -1,10 +1,11 @@
-package com.example.demo;
+package com.example.demo.behaviour;
 
 import java.util.Set;
 
+
+import com.example.demo.structure.ArticleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,11 +24,11 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/article") //gibt den Pfad an, unter dem der Microservice zu erreichen ist
 public class MicroserviceArticle_Controller {
 	
-@Autowired 
+@Autowired
 MicroserviceArticle_Service service;
 	
 	@GetMapping("/{article_id}")
-	public ResponseEntity<Article> get_Article(@PathVariable("article_id") int article_id){
+	public ResponseEntity<ArticleEntity> get_Article(@PathVariable("article_id") int article_id){
 		
 		/*RestTemplate restTemplate = new RestTemplate();
 		Article article = restTemplate.getForObject("http://article-service/article/" + article_id, Article.class);
@@ -38,10 +39,12 @@ MicroserviceArticle_Service service;
 	
 	@Transactional
 	@PostMapping("/insert_article")
-	public void get_article_name_post(@RequestBody Article article){
+	public void get_article_name_post(@RequestBody ArticleEntity article){
 		service.save_article(article);
 	}
-	
+
+	//@GetMapping("/getCatalog")
+
 	/*@GetMapping("/get_articles")
 	public Set<Article> get_all_articles*/
 	

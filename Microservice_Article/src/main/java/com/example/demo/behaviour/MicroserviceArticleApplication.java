@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.behaviour;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class}) // Nur solange keine Datenbankverbindung definiert ist
 @SpringBootApplication
 @EnableJpaRepositories("com.example.*")
-@EntityScan("com.example.*")
+@EntityScan("com.example.demo.structure")
 public class MicroserviceArticleApplication {
 
 	public static void main(String[] args) {

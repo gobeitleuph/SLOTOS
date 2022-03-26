@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.structure;
 
 import java.io.Serializable;
 
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Article implements Serializable {
+public class ArticleEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
