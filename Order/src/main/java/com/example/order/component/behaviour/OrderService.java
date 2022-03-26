@@ -20,7 +20,6 @@ public class OrderService {
     private RestTemplate restTemplate;
 
 	public Order saveOrder(Order order) {
-		// TODO Auto-generated method stub
 		return orderRepository.save(order);
 	}
 

@@ -1,5 +1,6 @@
 package com.example.demo.connector;
 
+import com.example.demo.component.behaviour.MicroserviceArticleService;
 import com.example.demo.component.structure.ArticleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/article") //gibt den Pfad an, unter dem der Microservice zu erreichen ist
+@RequestMapping("/articles") //gibt den Pfad an, unter dem der Microservice zu erreichen ist
 public class ArticleController {
 	
 @Autowired
@@ -39,6 +40,5 @@ private MicroserviceArticleService service;
 
 	/*@GetMapping("/get_articles")
 	public Set<Article> get_all_articles*/
-	
 
 }

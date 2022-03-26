@@ -1,7 +1,10 @@
 package com.example.demo.component.behaviour;
+import com.example.demo.component.structure.ArticleEntity;
 import com.example.demo.connector.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MicroserviceArticleService {
