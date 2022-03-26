@@ -8,7 +8,7 @@ public class Cart {
 	
 	private Map<Integer, CartItem> cartItems;
 	private int numberOfCartItems;	
-	private int userId;	//übergabe von customerID?
+	private int customerId;	//übergabe von customerID?
 	private int itemId; //übergabe von articleID?
 	
 	
@@ -21,7 +21,7 @@ public class Cart {
 	
 
 	public void createCart(int cartId) {
-		new Cart(userId);		
+		new Cart(customerId);
 	}
 	
 	

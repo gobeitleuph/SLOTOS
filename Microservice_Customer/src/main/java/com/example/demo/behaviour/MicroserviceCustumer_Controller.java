@@ -41,5 +41,11 @@ MicroserviceCustomer_Service service;
 		return ResponseEntity.ok("Alles wurde gespeichert");
 	}
 
+	@Transactional
+	@GetMapping
+	public ResponseEntity<String> addArticleToCart(@RequestParam(value = "customerId")Integer customerId, @RequestParam(value = "articleId")Integer articleId){
+		service.addArticleToCart(customerId, articleId);
+		return ResponseEntity.ok("Artikel wurde eingefügt");
 
+	}
 }

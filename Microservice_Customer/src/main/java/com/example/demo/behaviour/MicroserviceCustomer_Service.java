@@ -1,5 +1,7 @@
 package com.example.demo.behaviour;
 
+import com.example.demo.structure.Article;
+import com.example.demo.structure.CartItemEntity;
 import com.example.demo.structure.CustomerEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,23 @@ public class MicroserviceCustomer_Service {
 	public void saveCustomer(String name, String address) {
 		CustomerEntity customer = new CustomerEntity(name, address);
 		customer_repository.save(customer);
+	}
+	public void saveCustomer(CustomerEntity customer) {
+		customer_repository.save(customer);
+	}
+
+	public void addArticleToCart(Integer customerId, Integer articleId){
+		RestTemplate restTemplate = new RestTemplate();
+		Article article = restTemplate.getForObject("http://article-service/article/" + articleId, Article.class);
+
+		CustomerEntity customer = customer_repository.getById(customerId);
+
+		CartItemEntity cartItem = new CartItemEntity(customer.getId(), customer.getCart(), articleId);
+
+		customer.getCart().getItems().add(cartItem);
+
+		saveCustomer(customer);
+
 	}
 }
 
