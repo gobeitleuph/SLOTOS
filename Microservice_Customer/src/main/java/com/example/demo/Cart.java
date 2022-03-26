@@ -7,7 +7,10 @@ import java.util.Map;
 public class Cart {
 	
 	private Map<Integer, CartItem> cartItems;
-	private int numberOfCartItems;	
+	private int numberOfCartItems;
+
+
+
 	private int userId;	//übergabe von customerID?
 	private int itemId; //übergabe von articleID?
 	

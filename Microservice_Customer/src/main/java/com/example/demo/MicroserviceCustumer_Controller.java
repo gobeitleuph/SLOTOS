@@ -26,28 +26,32 @@ MicroserviceCustomer_Service service;
 		return ResponseEntity.ok(customers);
 	}
 	
+	//TODO: muss nicht
+//	@GetMapping("/get_customer_name")
+//	public ResponseEntity<String> get_Customer_name(@RequestParam(value="id", defaultValue = "0", required = true) int customer_id) {
+//
+//		return ResponseEntity.ok(service.get_customer_name(customer_id));
+//
+//	}
+//
+//
+//	@PostMapping("/get_customer_name")
+//	public ResponseEntity<String> get_customer_name_post(@RequestBody Customer customer) {
+//		return ResponseEntity.ok(customer.getLastName());
+//
+//	}
 	
-	@GetMapping("/get_customer_name")
-	public ResponseEntity<String> get_Customer_name(@RequestParam(value="id", defaultValue = "0", required = true) int customer_id) {
-		
-		return ResponseEntity.ok(service.get_customer_name(customer_id));
-		
-	}
-	
-	
-	
-	
-	
-	@PostMapping("/get_customer_name")
-	public ResponseEntity<String> get_customer_name_post(@RequestBody Customer customer) {
-		return ResponseEntity.ok(customer.getLastName());
-		
-	}
-	
-	@PostMapping("/save_customer")
-	public ResponseEntity<String> save_customer(@RequestBody Customer customer) {
-		service.save_customer(customer);
-		
+//	@PostMapping("/save_customer")
+//	public ResponseEntity<String> save_customer(@RequestBody Customer customer) {
+//		service.save_customer(customer);
+//
+//		return ResponseEntity.ok("Alles wurde gespeichert");
+//	}
+
+	@PostMapping("/create")
+	public ResponseEntity<String> save_customer_post(@RequestBody int id) {
+		service.save_customer(id);
+
 		return ResponseEntity.ok("Alles wurde gespeichert");
 	}
 

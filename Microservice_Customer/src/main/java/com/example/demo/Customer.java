@@ -1,11 +1,7 @@
 package com.example.demo;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data; 
@@ -21,8 +17,13 @@ public class Customer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String lastName;
-	private String firstName;
+	private Cart cart;
+
+	//TODO erstmal raus, weil nicht gefordert
+//	private String lastName;
+// 	private String firstName;
+
+
 	//private Integer age;
 	//private String mailAdress;
 	

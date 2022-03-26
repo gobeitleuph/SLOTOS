@@ -15,14 +15,17 @@ public class MicroserviceCustomer_Service {
 	@Autowired
 	Customer_Repository customer_repository;
 
-	public void save_customer(Customer customer) {
+	public void save_customer(int id) {
+		Customer customer = new Customer();
+		customer.setId(id);
 		customer_repository.save(customer);
 	}
 
-	public String get_customer_name(Integer id) {
-		return customer_repository.getById(id).getLastName();
-
-	}
+	//TODO: muss nicht
+//	public String get_customer_name(Integer id) {
+//		return customer_repository.getById(id).getLastName();
+//
+//	}
 //	public String get_customer_name (Integer id) {	
 //		String customer_name;
 //		customer_name = customer_repository.getById(id).getLastName()+", "+customer_repository.getById(id).getFirstName();		
