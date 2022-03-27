@@ -7,8 +7,8 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: ARTICLE_SERVICE
-          uri: lb://ARTICLE_SERVICE
+        - id: ARTICLE-SERVICE
+          uri: lb://ARTICLE-SERVICE
           predicates:
             - Path=/articles/**
         - id: CUSTOMER-SERVICE
