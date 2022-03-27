@@ -15,6 +15,10 @@ spring:
           uri: lb://CUSTOMER-SERVICE
           predicates:
             - Path=/customers/**
+        - id: ORDER-SERVICE
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/orders/**
 eureka:
   client:
     register-with-eureka: true

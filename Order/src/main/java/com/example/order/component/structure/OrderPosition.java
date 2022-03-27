@@ -22,8 +22,8 @@ public class OrderPosition {
 	@ManyToOne
 	private Order order;
 	private Integer orderposId;
-	private int articleId;
-	private int Quantity;
+	private Integer articleId;
+	private Integer Quantity;
 
 
 }

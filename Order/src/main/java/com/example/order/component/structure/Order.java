@@ -21,10 +21,12 @@ public class Order {
 	// relational attributes
 	private int customerId;
 	// relation - aggregation
-	private Set<OrderPositionEntity> orderPositions;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name = "fk_orderId", referencedColumnName = "orderId")
+	private Set<OrderPosition> orderPositions;
 	
 	public Order() {
-		orderPositions = new HashSet<OrderPositionEntity>();
+		orderPositions = new HashSet<OrderPosition>();
 	}
 	
 
@@ -37,14 +39,14 @@ public class Order {
 //		this.customerId = customerId;
 //	}
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name = "fk_orderId", referencedColumnName = "orderId")
-	public Set<OrderPositionEntity> getOrderPositions() {
-		return orderPositions;
-	}
+//	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//	@JoinColumn(name = "fk_orderId", referencedColumnName = "orderId")
+//	public Set<OrderPosition> getOrderPositions() {
+//		return orderPositions;
+//	}
 
-	public void setOrderPositions(Set<OrderPositionEntity> orderPositions) {
-		this.orderPositions = orderPositions;
-	}
+//	public void setOrderPositions(Set<OrderPositionEntity> orderPositions) {
+//		this.orderPositions = orderPositions;
+//	}
 
 }

@@ -36,9 +36,8 @@ public class OrderControllerTest {
     @Test
     public void testfindAll() throws Exception {
 
-        Set<OrderPosition> orderPosition= Set.of();
-                new OrderPosition(5,1,1);
-        Order order = new Order(1, orderPosition);
+        Set<OrderPosition> orderPositions = Set.of(new OrderPosition()
+        Order order = new Order();
         List<Order> orders = Arrays.asList(order);
 
         Mockito.when(orderService.findAll()).thenReturn(orders);

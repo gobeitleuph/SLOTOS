@@ -10,6 +10,7 @@ import com.example.demo.component.behaviour.MicroserviceArticleService;
 import com.example.demo.component.structure.ArticleEntity;
 import com.example.demo.connector.ArticleController;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -36,16 +37,25 @@ public class ArticleControllerTests {
     @Autowired
     MockMvc mockMvc;
 
+    @Before
+    public void setUp() {
+        this.mockMvc = webAppContextSetup(webApplicationContext).build();
+    }
+
     @Test
     public void findAll() throws Exception {
+        String expectedJson = "[{\"id\":\"11\",\"name\":\"11\"},{\"id\":\"22\",\"name\":\"22\"}]";
         ArticleEntity article = new ArticleEntity(3, "jumbo",  "lego", 12);
         List<ArticleEntity> articles = Arrays.asList(article);
 
         Mockito.when(articleService.findAll()).thenReturn(articles);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/get_articles"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[3].name", Matchers.is("jumbo")));
+        mockMvc.perform(get("/articles"))
+                .andExpect(ArticleEntity.getStatusCodeValue()).isEqualTo(201);
+//        .andExpect(jsonPath("$", Matchers.hasSize(1)))
+//                .andExpect(jsonPath("$[0].name", Matchers.is("jumbo")));
+//        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
+
 
     }
 

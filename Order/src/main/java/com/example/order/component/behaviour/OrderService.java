@@ -28,9 +28,8 @@ public class OrderService {
 	}
 
 	public Customer getCustomer(Integer id) {
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getForObject("http://localhost:9191/customers/" + id, Customer.class);
-		return .getCustomer(id);
+		RestTemplate rt = new RestTemplate();
+		return restTemplate.getForObject("http://localhost:9191/customers/" + id, Customer.class);
 	}
 
 	public Order processOrder(int customerId) {

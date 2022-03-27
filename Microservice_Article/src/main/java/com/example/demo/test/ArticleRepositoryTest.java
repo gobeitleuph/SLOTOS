@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.example.demo.component.structure.ArticleEntity;
@@ -20,13 +21,15 @@ public class ArticleRepositoryTest {
 
     @Test
     public void testCreateReadDelete() {
-        ArticleEntity article = new ArticleEntity(1, "jumbo",  "lego", 12);
+        articleRepository.deleteAll();
+
+        ArticleEntity article = new ArticleEntity(1,"bier","becks",2);
         articleRepository.save(article);
         //TODO: ID problem
         ArticleEntity found = articleRepository.getById(1);
         Assertions.assertThat(article.getName()).isEqualTo(found.getName());
 
-       // articleRepository.deleteAll();
+        articleRepository.deleteAll();
 
     }
 

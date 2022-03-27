@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class ArticleEntity implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String manufactor;
