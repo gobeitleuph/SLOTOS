@@ -12,11 +12,6 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
-	 @PostMapping("/")
-		public Order saveOrder(@RequestBody Order order) {
-			return orderService.saveOrder(order);
-		}
-
 	@GetMapping("/{id}")
 	public Order getOrder(@PathVariable("id") Integer id) {
 		return orderService.getOrder(id);
