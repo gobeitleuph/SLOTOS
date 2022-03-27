@@ -1,6 +1,7 @@
 package com.example.demo.structure;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -23,8 +24,9 @@ public class CartEntity {
 
 	@OneToMany
 	@JoinColumn(name="cart_item_id")
+	@EqualsAndHashCode.Exclude
 	private Set<CartItemEntity> items;
 
 	private int numberOfCartItems;
 
-	}
+}

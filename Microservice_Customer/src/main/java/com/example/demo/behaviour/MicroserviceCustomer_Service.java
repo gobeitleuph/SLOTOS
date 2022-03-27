@@ -10,11 +10,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class MicroserviceCustomer_Service {
 
-	@Autowired
-	RestTemplate restTemplate;
+	final RestTemplate restTemplate;
 
-	@Autowired
-	Customer_Repository customer_repository;
+	final Customer_Repository customer_repository;
+
+	public MicroserviceCustomer_Service(RestTemplate restTemplate, Customer_Repository customer_repository) {
+		this.restTemplate = restTemplate;
+		this.customer_repository = customer_repository;
+	}
 
 
 //	public String get_customer_name (Integer id) {	
