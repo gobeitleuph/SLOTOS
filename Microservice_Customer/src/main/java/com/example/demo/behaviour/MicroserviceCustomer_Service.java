@@ -53,6 +53,27 @@ public class MicroserviceCustomer_Service {
 		saveCustomer(customer);
 
 	}
+
+	public void decrementArticleQuantity(Integer customerId, Integer articleId) {
+		CustomerEntity customer = customerRepository.getById(customerId);
+		for (CartItemEntity cartItem : customer.getCart().getItems()) {
+			if (cartItem.getArticleId() == articleId)
+				if (cartItem.getQuantity() > 0)
+					cartItem.setQuantity(cartItem.getQuantity() - 1);
+		}
+		saveCustomer(customer);
+	}
+
+	public void deleteArticleFromCart(Integer customerId, Integer articleId) {
+		CustomerEntity customer = customerRepository.getById(customerId);
+		Set<CartItemEntity> cartItemEntitySet = customer.getCart().getItems();
+		for (CartItemEntity cartItem : customer.getCart().getItems()) {
+			if (cartItem.getArticleId() == articleId)
+				cartItemEntitySet.remove(cartItem);
+
+			saveCustomer(customer);
+		}
+	}
 }
 
 

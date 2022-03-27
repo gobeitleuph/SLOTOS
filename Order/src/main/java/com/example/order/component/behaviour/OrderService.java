@@ -65,26 +65,6 @@ public class OrderService {
 		return article;
 	}
 
-	public Object findAll() {
-		return orderRepository.findAll();
-	}
-
-//	public OrderPositionEntity get_entity_from_class(OrderPosition orderPosition) {
-//		return new OrderPositionEntity(orderPosition.getOrderpos_Id(), orderPosition.getArticle().getId(), orderPosition.getArticleQuantity());
-//	}
-//
-//	public OrderPositionEntity get_class_from_entity(OrderPositionEntity orderPositionEntity) {
-//		return new OrderPositionEntity(orderPositionEntity.getOrderpos_id(), orderPositionEntity.getArticleId(), orderPositionEntity.getArticleQuantity());
-//	}
-	
-
-
-
-	//Article article = restTemplate.getForObject("http://article-service/article/", null, null);
-
-
-
-
-
-
 }
+
+

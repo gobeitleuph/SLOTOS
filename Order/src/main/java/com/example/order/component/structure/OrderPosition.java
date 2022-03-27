@@ -19,8 +19,6 @@ public class OrderPosition {
 
 	@Id
 	@Column(name = "orderpos_id", nullable = false)
-	@ManyToOne
-	private Order order;
 	private Integer orderposId;
 	private Integer articleId;
 	private Integer Quantity;
