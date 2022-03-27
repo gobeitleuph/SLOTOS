@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/articles") //gibt den Pfad an, unter dem der Microservice zu erreichen ist
@@ -38,7 +40,9 @@ private MicroserviceArticleService service;
 
 	//@GetMapping("/getCatalog")
 
-	/*@GetMapping("/get_articles")
-	public Set<Article> get_all_articles*/
+	@GetMapping("/get_articles")
+	public List<ArticleEntity> get_all_articles(){
+		return service.get_all_articles();
+	}
 
 }

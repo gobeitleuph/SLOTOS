@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class}) // Nur solange keine Datenbankverbindung definiert ist
 
 @SpringBootApplication
-@EnableJpaRepositories("com.example.*")
+//@EnableJpaRepositories("com.example.*")
 @EntityScan("com.example.demo.*")
 public class MicroserviceArticleApplication {
 

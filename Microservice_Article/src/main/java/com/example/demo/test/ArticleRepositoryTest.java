@@ -22,7 +22,7 @@ public class ArticleRepositoryTest {
     public void testCreateReadDelete() {
         ArticleEntity article = new ArticleEntity(1, "jumbo",  "lego", 12);
         articleRepository.save(article);
-
+        //TODO: ID problem
         ArticleEntity found = articleRepository.getById(1);
         Assertions.assertThat(article.getName()).isEqualTo(found.getName());
 

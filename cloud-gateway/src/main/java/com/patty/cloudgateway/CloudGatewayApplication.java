@@ -6,7 +6,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-//TODO: Rest anfragen über gateway sh. tutorial
 public class CloudGatewayApplication {
 
 	public static void main(String[] args) {

@@ -24,4 +24,8 @@ public class MicroserviceArticleService {
     public List<ArticleEntity> findAll() {
         return repository.findAll();
     }
+
+    public List<ArticleEntity> get_all_articles() {
+        return repository.findAll();
+    }
 }

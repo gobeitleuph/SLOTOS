@@ -1,17 +1,25 @@
 package com.example.order.component.structure;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 @Table(name="orders")
 @Entity
+@Data
+@AllArgsConstructor
 public class Order {
 
 	// intrinsic attributes
+	@Id
+	@GeneratedValue
 	private Integer orderId;
 	
 	// relational attributes
-//	private int customerId;
+	private int customerId;
 	// relation - aggregation
 	private Set<OrderPositionEntity> orderPositions;
 	
@@ -19,15 +27,7 @@ public class Order {
 		orderPositions = new HashSet<OrderPositionEntity>();
 	}
 	
-	@Id
-	@GeneratedValue
-	public Integer getOrderId() {
-		return orderId;
-	}
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
 
 //	public int getCustomerId() {
 //		return customerId;

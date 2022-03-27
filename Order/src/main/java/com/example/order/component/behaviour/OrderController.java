@@ -17,8 +17,12 @@ public class OrderController {
 			return orderService.saveOrder(order);
 		}
 
+	@GetMapping("/{id}")
+	public Order getOrder(@PathVariable("id") Integer id) {
+		return orderService.getOrder(id);
+	}
 //	 @GetMapping("/{id}")
-//	 public ResponseTemplate getOrderWithArticle(@PathVariable("id")int order_id) {
+//		 public ResponseTemplate getOrderWithArticle(@PathVariable("id")int order_id) {
 //		 return	orderService.getOrderWithArticle(order_id);
 //		}
 
