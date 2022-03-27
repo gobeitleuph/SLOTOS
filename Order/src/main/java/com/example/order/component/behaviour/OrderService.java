@@ -6,18 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class OrderService {
 
-    @Autowired
-	Order_Repository orderRepository;
+	private RestTemplate restTemplate;
+	private Order_Repository orderRepository;
 
-    @Autowired
-    private RestTemplate restTemplate;
+	public OrderService(RestTemplate restTemplate, Order_Repository orderRepository) {
+		this.restTemplate = restTemplate;
+		this.orderRepository = orderRepository;
+	}
 
 	public Order saveOrder(Order order) {
 		return orderRepository.save(order);
@@ -27,42 +31,37 @@ public class OrderService {
 		return orderRepository.getById(id);
 	}
 
-	public Customer getCustomer(Integer id) {
-		RestTemplate rt = new RestTemplate();
-		return restTemplate.getForObject("http://localhost:9191/customers/" + id, Customer.class);
-	}
 
-	public Order processOrder(int customerId) {
+	public void processOrder(Set<CartItemDto> cartItemSet) {
 
-		Customer customer = getCustomer(customerId);
-		Cart cart = customer.getCart();
 
 		Order order = new Order();
-		order.setOrderId(1);
+		order.setOrderId(UUID.randomUUID().toString());
 
 		int i = 1;
 
 		Set<OrderPosition> orderPositions = new HashSet<OrderPosition>();
 
-		for (CartItem cartItem : cart.getCartItems()) {
+		for (CartItemDto cartItem : cartItemSet) {
 			OrderPosition orderPosition = new OrderPosition();
-			orderPosition.setPositionId(i++);
-			orderPosition.setArticle(cartItem.getArticle());
-			orderPosition.setArticleQuantity(cartItem.getQuantity());
+			orderPosition.setOrderposId(i++);
+			orderPosition.setArticleId(cartItem.getArticleId());
+			orderPosition.setQuantity(cartItem.getQuantity());
 			orderPositions.add(orderPosition);
 			order.setOrderPositions(orderPositions);
+			order.setCustomerId(cartItem.getCartItemId());
 		}
 
-		customer.addOrder(order);
-
-		return order;
+		saveOrder(order);
 	}
 
+	@Transactional
+	public String checkOutCartForCustomer(Integer customerId){
+		Set<CartItemDto> cartItemDtoSet =  restTemplate.getForObject("http://localhost:9191/customers/" + customerId, Set.class);
+		processOrder(cartItemDtoSet);
 
-	
-	public Article get_article(int articleId) {
-		Article article = restTemplate.getForObject("http://article-service/article/" + articleId, Article.class);
-		return article;
+		String emptyCart = restTemplate.getForObject("http://localhost:9191/customers/deleteCart/" + customerId, String.class);
+		return emptyCart;
 	}
 
 }

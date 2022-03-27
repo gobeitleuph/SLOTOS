@@ -1,5 +1,7 @@
 package com.example.demo.behaviour;
 
+import com.example.demo.structure.CartItemDto;
+import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -7,29 +9,24 @@ import javax.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/customers")
 @CrossOrigin
 public class MicroserviceCustumer_Controller {
-	
-@Autowired
-MicroserviceCustomer_Service service;
-	
 
+	private MicroserviceCustomer_Service service;
 
-/*	@GetMapping("/get_customers")
-	public ResponseEntity<Table> getCustomers() {
-		Table customers = MicroserviceCustomer_Service.getCustomers();
-		return ResponseEntity.ok(customers);
+	public MicroserviceCustumer_Controller (MicroserviceCustomer_Service service){
+		this.service = service;
 	}
-	
-	
-	@GetMapping("/get_customer_name")
-	public ResponseEntity<String> get_Customer_name(@RequestParam(value="id", defaultValue = "0", required = true) int customer_id) {
-		
-		return ResponseEntity.ok(service.get_customer_name(customer_id));
-		
-	}*/
+
+	@Transactional
+	@GetMapping("/deleteCart")
+	public ResponseEntity<String> deleteCart(@RequestParam(value = "customerId") Integer customerId){
+		return ResponseEntity.ok(service.deleteCart(customerId));
+	}
 
 	@Transactional
 	@GetMapping("/save_customer")
@@ -39,10 +36,31 @@ MicroserviceCustomer_Service service;
 	}
 
 	@Transactional
-	@GetMapping
+	@GetMapping("/addArticleToCart")
 	public ResponseEntity<String> addArticleToCart(@RequestParam(value = "customerId")Integer customerId, @RequestParam(value = "articleId")Integer articleId){
 		service.addArticleToCart(customerId, articleId);
 		return ResponseEntity.ok("Artikel wurde eingefügt");
-
 	}
+
+	@Transactional
+	@GetMapping("/deleteArticleFromCart")
+	public ResponseEntity<String> deleteArticleFromCart(@RequestParam(value = "customerId")Integer customerId, @RequestParam(value = "articleId")Integer articleId){
+		service.deleteArticleFromCart(customerId, articleId);
+		return ResponseEntity.ok("Artikel wurde entfernt");
+	}
+
+	@Transactional
+	@GetMapping("/decrementArticleQuantity")
+	public ResponseEntity<String> decrementArticleQuantity(@RequestParam(value = "customerId")Integer customerId, @RequestParam(value = "articleId")Integer articleId){
+		service.decrementArticleQuantity(customerId, articleId);
+		return ResponseEntity.ok("Artikel Zahl -1");
+	}
+	
+	@GetMapping("/sendCart")
+	public ResponseEntity<Set<CartItemDto>> sendCart (@RequestParam(value = "customerId")Integer customerId){
+		return ResponseEntity.ok(service.getCartFromCustomerDto(customerId));
+	}
+
+
+	
 }

@@ -1,50 +1,63 @@
 package com.example.demo.behaviour;
 
-import com.example.demo.structure.Article;
-import com.example.demo.structure.CartItemEntity;
-import com.example.demo.structure.CustomerEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.structure.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class MicroserviceCustomer_Service {
 
 	final RestTemplate restTemplate;
 
-	final Customer_Repository customer_repository;
+	final Customer_Repository customerRepository;
 
 	public MicroserviceCustomer_Service(RestTemplate restTemplate, Customer_Repository customer_repository) {
 		this.restTemplate = restTemplate;
-		this.customer_repository = customer_repository;
+		this.customerRepository = customer_repository;
 	}
 
-
-//	public String get_customer_name (Integer id) {	
-//		String customer_name;
-//		customer_name = customer_repository.getById(id).getLastName()+", "+customer_repository.getById(id).getFirstName();		
-//		return customer_name;
-//		}
-
-/*	public static Table getCustomers() {
-		return null;
+	public CartItemDto createCartItemDto(CartItemEntity cartItem) {
+		return new CartItemDto(cartItem.getCartItemId(), cartItem.getArticleId(), cartItem.getQuantity());
 	}
 
-	public Article get_article(int articleId) {
-		Article article = restTemplate.getForObject("http://article-service/article/" + articleId, Article.class);
-		return article;
-	}*/
+	public Set<CartItemDto> createSetCartItemDto(Set<CartItemEntity> cartItemEntitySet) {
+		Set<CartItemDto> cartItemSet = new HashSet<CartItemDto>();
+		for (CartItemEntity cartItem : cartItemEntitySet) {
+			cartItemSet.add(createCartItemDto(cartItem));
+		}
+		return cartItemSet;
+	}
+
+	public Set<CartItemDto> getCartFromCustomerDto(Integer customerId) {
+		CustomerEntity customer = customerRepository.getById(customerId);
+		return (createSetCartItemDto(customer.getCart().getItems()));
+	}
+
+	public String deleteCart(Integer customerId) {
+		CustomerEntity customer = getCustomer(customerId);
+		customer.getCart().setItems(new HashSet<CartItemEntity>());
+		saveCustomer(customer);
+		return "cart deleted";
+	}
 
 	public void saveCustomer(String name, String address) {
 		CustomerEntity customer = new CustomerEntity(name, address);
-		customer_repository.save(customer);
+		customerRepository.save(customer);
 	}
+
 	public void saveCustomer(CustomerEntity customer) {
-		customer_repository.save(customer);
+		customerRepository.save(customer);
+	}
+
+	public CustomerEntity getCustomer(Integer customerId) {
+		return customerRepository.getById(customerId);
 	}
 
 	public void addArticleToCart(Integer customerId, Integer articleId) {
-		CustomerEntity customer = customer_repository.getById(customerId);
+		CustomerEntity customer = customerRepository.getById(customerId);
 
 		CartItemEntity cartItem = new CartItemEntity(customer.getId(), customer.getCart(), articleId);
 

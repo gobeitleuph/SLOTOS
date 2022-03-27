@@ -41,8 +41,8 @@ private MicroserviceArticleService service;
 	//@GetMapping("/getCatalog")
 
 	@GetMapping("/get_articles")
-	public List<ArticleEntity> get_all_articles(){
-		return service.get_all_articles();
+	public List<ArticleEntity> getAllArticles(){
+		return service.getAllArticles();
 	}
 
 }

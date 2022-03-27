@@ -15,8 +15,7 @@ public class Order {
 
 	// intrinsic attributes
 	@Id
-	@GeneratedValue
-	private Integer orderId;
+	private String orderId;
 	
 	// relational attributes
 	private int customerId;
