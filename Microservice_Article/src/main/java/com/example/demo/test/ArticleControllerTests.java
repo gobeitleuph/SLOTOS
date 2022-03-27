@@ -2,6 +2,7 @@ package com.example.demo.test;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
 import com.example.demo.component.behaviour.MicroserviceArticleService;
 import com.example.demo.component.structure.ArticleEntity;
 import com.example.demo.connector.ArticleController;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -37,21 +40,32 @@ public class ArticleControllerTests {
     @Autowired
     MockMvc mockMvc;
 
-    @Before
+    /*@Before
     public void setUp() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
-    }
+    }*/
 
     @Test
     public void findAll() throws Exception {
-        String expectedJson = "[{\"id\":\"11\",\"name\":\"11\"},{\"id\":\"22\",\"name\":\"22\"}]";
+        //String expectedJson = "[{\"id\":\"11\",\"name\":\"11\"},{\"id\":\"22\",\"name\":\"22\"}]";
         ArticleEntity article = new ArticleEntity(3, "jumbo",  "lego", 12);
         List<ArticleEntity> articles = Arrays.asList(article);
+
+      /*  ObjectMapper mapper = new ObjectMapper();
+        try {
+            String json = mapper.writeValueAsString(articles);
+            System.out.println("ResultingJSONstring = " + json);
+            //System.out.println(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }*/
+
+
 
         Mockito.when(articleService.findAll()).thenReturn(articles);
 
         mockMvc.perform(get("/articles"))
-                .andExpect(ArticleEntity.getStatusCodeValue()).isEqualTo(201);
+                .andExpect(status().isOk());
 //        .andExpect(jsonPath("$", Matchers.hasSize(1)))
 //                .andExpect(jsonPath("$[0].name", Matchers.is("jumbo")));
 //        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);

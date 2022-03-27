@@ -40,10 +40,7 @@ public class MicroserviceCustomer_Service {
 		customer_repository.save(customer);
 	}
 
-	public void addArticleToCart(Integer customerId, Integer articleId){
-		RestTemplate restTemplate = new RestTemplate();
-		Article article = restTemplate.getForObject("http://article-service/article/" + articleId, Article.class);
-
+	public void addArticleToCart(Integer customerId, Integer articleId) {
 		CustomerEntity customer = customer_repository.getById(customerId);
 
 		CartItemEntity cartItem = new CartItemEntity(customer.getId(), customer.getCart(), articleId);
