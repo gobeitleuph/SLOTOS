@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +61,7 @@ public class MicroserviceCustumer_Controller {
 	public ResponseEntity<Set<CartItemDto>> sendCart (@RequestParam(value = "customerId")Integer customerId){
 		return ResponseEntity.ok(service.getCartFromCustomerDto(customerId));
 	}
+
 
 
 	

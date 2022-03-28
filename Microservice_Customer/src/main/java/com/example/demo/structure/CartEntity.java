@@ -17,13 +17,14 @@ public class CartEntity {
 	@Column(name = "customer_id")
 	private int id;
 
-	@OneToOne
-	@MapsId
-	@JoinColumn(name = "customer_id")
-	private CustomerEntity customer;
+	//@JsonIgnore
+//	@OneToOne
+//	@MapsId
+//	@JoinColumn(name = "customer_id")
+//	private CustomerEntity customer;
 
 	@OneToMany
-	@JoinColumn(name="cart_item_id")
+	@JoinColumn(name="cartId")
 	@EqualsAndHashCode.Exclude
 	private Set<CartItemEntity> items;
 

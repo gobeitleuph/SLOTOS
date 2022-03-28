@@ -15,17 +15,15 @@ public class CartItemEntity {
 
 	@Id
 	@Column(name = "cart_item_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer cartItemId;
-
-	@ManyToOne
-	@JoinColumn(name = "cart_item_id", insertable = false, updatable = false)
-	private CartEntity cart;
 	private int articleId;
 	private int quantity;
+	private int cartId;
 
-	public CartItemEntity(Integer customerId, CartEntity cart, int articleId){
-		this.cartItemId = customerId;
-		this.cart = cart;
+	public CartItemEntity(Integer cartId, int articleId){
+		this.cartId = cartId;
+
 		this.articleId = articleId;
 		this.quantity++;
 	}

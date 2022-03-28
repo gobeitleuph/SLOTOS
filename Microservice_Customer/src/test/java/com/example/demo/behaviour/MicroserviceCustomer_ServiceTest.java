@@ -30,7 +30,7 @@ class MicroserviceCustomer_ServiceTest {
 
     @BeforeEach
     void setUp() {
-        this.serviceUnderTest = new MicroserviceCustomer_Service(mockRestTemplate, mockRepository);
+        this.serviceUnderTest = new MicroserviceCustomer_Service(mockRestTemplate, mockRepository, mockCartRepository, mockCartitemRepository);
     }
 
     @Test
@@ -40,7 +40,7 @@ class MicroserviceCustomer_ServiceTest {
         CustomerEntity customerEntity = new CustomerEntity(1, "Peter Maffai", "Wohlers Allee 38", cart);
         Mockito.when(mockRepository.getById(1)).thenReturn(customerEntity);
         CustomerEntity customer = mockRepository.getById(1);
-        CartItemEntity cartItem = new CartItemEntity(customer.getId(), customer.getCart(), 1);
+        CartItemEntity cartItem = new CartItemEntity(customer.getId(), 1);
 
 
         Mockito.when(mockRepository.save(Mockito.any())).thenReturn(customerEntity);
@@ -56,7 +56,7 @@ class MicroserviceCustomer_ServiceTest {
 
         CartEntity cart = new CartEntity();
         cart.setItems(Sets.newHashSet());
-        CartItemEntity cartItem = new CartItemEntity(1, cart, 1);
+        CartItemEntity cartItem = new CartItemEntity(1, 1);
         cartItem.setQuantity(4);
         cart.getItems().add(cartItem);
         CustomerEntity customerEntity = new CustomerEntity(1, "Peter Maffai", "Wohlers Allee 38", cart);
@@ -74,7 +74,7 @@ class MicroserviceCustomer_ServiceTest {
 
         CartEntity cart = new CartEntity();
         cart.setItems(Sets.newHashSet());
-        CartItemEntity cartItem = new CartItemEntity(1, cart, 1);
+        CartItemEntity cartItem = new CartItemEntity(1, 1);
         cart.getItems().add(cartItem);
         CustomerEntity customerEntity = new CustomerEntity(1, "Peter Maffai", "Wohlers Allee 38", cart);
         Mockito.when(mockRepository.getById(1)).thenReturn(customerEntity);

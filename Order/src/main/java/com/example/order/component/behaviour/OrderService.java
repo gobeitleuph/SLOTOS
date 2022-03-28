@@ -2,6 +2,8 @@ package com.example.order.component.behaviour;
 
 import com.example.order.component.structure.*;
 
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +19,9 @@ public class OrderService {
 
 	private RestTemplate restTemplate;
 	private Order_Repository orderRepository;
+
+	@Autowired
+	private EurekaClient eurekaClient;
 
 	public OrderService(RestTemplate restTemplate, Order_Repository orderRepository) {
 		this.restTemplate = restTemplate;
@@ -58,11 +63,21 @@ public class OrderService {
 
 	@Transactional
 	public String checkOutCartForCustomer(Integer customerId){
-		Set<CartItemDto> cartItemDtoSet =  restTemplate.getForObject("http://customer-service/customers/" + customerId, Set.class);
-		processOrder(cartItemDtoSet);
 
-		String emptyCart = restTemplate.getForObject("http://customer-service/customers/deleteCart/" + customerId, String.class);
-		return emptyCart;
+		InstanceInfo service = eurekaClient
+				.getApplication("customer-service")
+				.getInstances()
+				.get(0);
+
+		String hostName = service.getHostName();
+		int port = service.getPort();
+
+		String customerServiceURL = "http://" + hostName + ":" + port;
+		CartItemDto[] itemArray =  restTemplate.getForObject(customerServiceURL + "/customers/sendCart?customerId=" + customerId, CartItemDto[].class);
+		Set<CartItemDto> itemSet = Arrays.stream(itemArray).collect(Collectors.toSet());
+		processOrder(itemSet);
+
+		return restTemplate.getForObject(customerServiceURL + "/customers/deleteCart?customerId=" + customerId, String.class);
 	}
 
 }

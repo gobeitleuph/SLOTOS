@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Data						
 @NoArgsConstructor
 @AllArgsConstructor	
-public class CustomerEntity implements Serializable {
+public class CustomerEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +20,8 @@ public class CustomerEntity implements Serializable {
 	private String name;
 	private String address;
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cart_id")
 	private CartEntity cart;
 
 	public CustomerEntity (String name, String address){

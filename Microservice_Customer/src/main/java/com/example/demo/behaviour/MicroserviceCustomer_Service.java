@@ -14,9 +14,15 @@ public class MicroserviceCustomer_Service {
 
 	final Customer_Repository customerRepository;
 
-	public MicroserviceCustomer_Service(RestTemplate restTemplate, Customer_Repository customer_repository) {
+	final CartItemRepository cartItemRepository;
+
+	final CartRepository cartRepository;
+
+	public MicroserviceCustomer_Service(RestTemplate restTemplate, Customer_Repository customer_repository,CartRepository cartRepository, CartItemRepository cartItemRepository) {
 		this.restTemplate = restTemplate;
 		this.customerRepository = customer_repository;
+		this.cartItemRepository = cartItemRepository;
+		this.cartRepository = cartRepository;
 	}
 
 	public CartItemDto createCartItemDto(CartItemEntity cartItem) {
@@ -53,17 +59,16 @@ public class MicroserviceCustomer_Service {
 	}
 
 	public CustomerEntity getCustomer(Integer customerId) {
-		return customerRepository.getById(customerId);
+		return customerRepository.findById(customerId).get();
 	}
 
 	public void addArticleToCart(Integer customerId, Integer articleId) {
 		CustomerEntity customer = customerRepository.getById(customerId);
 
-		CartItemEntity cartItem = new CartItemEntity(customer.getId(), customer.getCart(), articleId);
+		CartItemEntity cartItem = new CartItemEntity(customer.getId(), articleId);
 
-		customer.getCart().getItems().add(cartItem);
+		cartItemRepository.save(cartItem);
 
-		saveCustomer(customer);
 
 	}
 
