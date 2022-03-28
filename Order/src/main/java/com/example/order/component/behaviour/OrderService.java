@@ -5,7 +5,6 @@ import com.example.order.component.structure.*;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,8 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
 
-	private RestTemplate restTemplate;
-	private Order_Repository orderRepository;
+	final private RestTemplate restTemplate;
+
+	final private Order_Repository orderRepository;
 
 	@Autowired
 	private EurekaClient eurekaClient;
