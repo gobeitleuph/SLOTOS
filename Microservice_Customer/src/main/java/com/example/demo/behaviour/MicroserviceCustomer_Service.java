@@ -70,10 +70,8 @@ public class MicroserviceCustomer_Service {
 	}
 
 	public void addArticleToCart(Integer customerId, Integer articleId) {
-		CustomerEntity customer = customerRepository.getById(customerId);
 
-		CartItemEntity cartItem = new CartItemEntity(customer.getId(), articleId);
-
+		CartItemEntity cartItem = new CartItemEntity(customerId, articleId);
 		cartItemRepository.save(cartItem);
 
 

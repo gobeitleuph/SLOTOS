@@ -41,23 +41,6 @@ class MicroserviceCustomer_ServiceTest {
         this.serviceUnderTest = new MicroserviceCustomer_Service(mockRestTemplate, mockRepository, mockCartRepository, mockCartitemRepository);
     }
 
-    @Test
-    void shouldAddItemToCart() {
-        CartEntity cart = new CartEntity();
-        cart.setItems(Sets.newHashSet());
-        CustomerEntity customerEntity = new CustomerEntity(1, "Peter Maffai", "Wohlers Allee 38", cart);
-        Mockito.when(mockRepository.getById(1)).thenReturn(customerEntity);
-        CustomerEntity customer = mockRepository.getById(1);
-        CartItemEntity cartItem = new CartItemEntity(customer.getId(), 1);
-
-
-        Mockito.when(mockRepository.save(Mockito.any())).thenReturn(customerEntity);
-
-        serviceUnderTest.addArticleToCart(1, 1);
-
-        HashSet<CartItemEntity> expectedItems = Sets.newHashSet(cartItem);
-        assertIterableEquals(expectedItems, customer.getCart().getItems());
-    }
 
     @Test
     void shouldDecrementArticleQuantity(){
