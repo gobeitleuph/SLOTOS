@@ -1,10 +1,12 @@
 package com.example.demo.structure;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,8 +15,14 @@ import java.util.Set;
 @Data
 public class CartEntity {
 
+	public CartEntity (CustomerEntity customer){
+		//this.customer = customer;
+		this.items = new HashSet<CartItemEntity>();
+	}
+
 	@Id
-	@Column(name = "customer_id")
+	@Column(name = "cart_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 
 	//@JsonIgnore

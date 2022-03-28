@@ -24,21 +24,16 @@ public class ArticleController {
 private MicroserviceArticleService service;
 	@GetMapping("/{article_id}")
 	public ResponseEntity<ArticleEntity> get_Article(@PathVariable("article_id") int article_id){
-		
-		/*RestTemplate restTemplate = new RestTemplate();
-		Article article = restTemplate.getForObject("http://article-service/article/" + article_id, Article.class);
-		*/
 
 		return ResponseEntity.ok(service.get_article(article_id));
 	}
 	
 	@Transactional
 	@PostMapping("/insert_article")
-	public void get_article_name_post(@RequestBody ArticleEntity article){
+	public void insertArticle(@RequestBody ArticleEntity article){
 		service.save_article(article);
 	}
 
-	//@GetMapping("/getCatalog")
 
 	@GetMapping("/get_articles")
 	public List<ArticleEntity> getAllArticles(){

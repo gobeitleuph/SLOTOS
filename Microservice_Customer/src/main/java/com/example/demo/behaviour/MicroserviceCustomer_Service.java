@@ -25,6 +25,18 @@ public class MicroserviceCustomer_Service {
 		this.cartRepository = cartRepository;
 	}
 
+	public void createCustomerWithCart (String name, String address){
+		CustomerEntity customer = new CustomerEntity();
+		CartEntity cart = new CartEntity(customer);
+
+		customer.setCart(cart);
+		customer.setName(name);
+		customer.setAddress(address);
+
+		saveCustomer(customer);
+
+	}
+
 	public CartItemDto createCartItemDto(CartItemEntity cartItem) {
 		return new CartItemDto(cartItem.getCartItemId(), cartItem.getArticleId(), cartItem.getQuantity());
 	}
@@ -43,16 +55,11 @@ public class MicroserviceCustomer_Service {
 	}
 
 	public String deleteCart(Integer customerId) {
-		CustomerEntity customer = getCustomer(customerId);
-		customer.getCart().setItems(new HashSet<CartItemEntity>());
-		saveCustomer(customer);
+		cartItemRepository.deleteCartItemEntitiesByCartId(customerId);
 		return "cart deleted";
 	}
 
-	public void saveCustomer(String name, String address) {
-		CustomerEntity customer = new CustomerEntity(name, address);
-		customerRepository.save(customer);
-	}
+
 
 	public void saveCustomer(CustomerEntity customer) {
 		customerRepository.save(customer);

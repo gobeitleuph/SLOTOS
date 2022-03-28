@@ -1,6 +1,7 @@
 package com.example.demo.behaviour;
 
 import com.example.demo.structure.CartItemDto;
+import com.example.demo.structure.CustomerEntity;
 import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +24,13 @@ public class MicroserviceCustumer_Controller {
 		this.service = service;
 	}
 
+
+	@GetMapping(value = "/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CustomerEntity> getCustomer(@PathVariable(value = "customer_id")Integer customerId){
+		System.out.println(service.getCustomer(customerId).getAddress());
+		return ResponseEntity.ok(service.getCustomer(customerId));
+	}
+
 	@Transactional
 	@GetMapping("/deleteCart")
 	public ResponseEntity<String> deleteCart(@RequestParam(value = "customerId") Integer customerId){
@@ -32,7 +40,7 @@ public class MicroserviceCustumer_Controller {
 	@Transactional
 	@GetMapping("/save_customer")
 	public ResponseEntity<String> save_customer(@RequestParam(value = "name") String name, @RequestParam(value = "address") String address) {
-		service.saveCustomer(name, address);
+		service.createCustomerWithCart(name, address);
 		return ResponseEntity.ok("Alles wurde gespeichert");
 	}
 

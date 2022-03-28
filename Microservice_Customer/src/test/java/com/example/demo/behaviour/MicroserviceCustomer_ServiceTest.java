@@ -22,11 +22,19 @@ class MicroserviceCustomer_ServiceTest {
 
     MicroserviceCustomer_Service serviceUnderTest;
 
+
+
+    @Mock
+    RestTemplate mockRestTemplate;
+
     @Mock
     Customer_Repository mockRepository;
 
     @Mock
-    RestTemplate mockRestTemplate;
+    CartItemRepository mockCartitemRepository;
+
+    @Mock
+    CartRepository mockCartRepository;
 
     @BeforeEach
     void setUp() {
