@@ -12,5 +12,4 @@ public class ServiceDiscoveryApplication {
 		SpringApplication.run(ServiceDiscoveryApplication.class, args);
 	}
 
-}//hihi//zhhhh
-//huhu
+}

@@ -15,7 +15,7 @@ public class CartEntity {
 
 	@Id
 	@Column(name = "customer_id")
-	private Long id;
+	private int id;
 
 	@OneToOne
 	@MapsId

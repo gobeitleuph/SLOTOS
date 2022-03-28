@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "articles1")
+@Table(name = "articles")
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class ArticleEntity implements Serializable {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String manufactor;

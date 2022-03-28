@@ -32,7 +32,7 @@ public class OrderService {
 	}
 
 
-	public void processOrder(Set<CartItemDto> cartItemSet) {
+	public Order processOrder(Set<CartItemDto> cartItemSet) {
 
 
 		Order order = new Order();
@@ -53,14 +53,15 @@ public class OrderService {
 		}
 
 		saveOrder(order);
+		return order;
 	}
 
 	@Transactional
 	public String checkOutCartForCustomer(Integer customerId){
-		Set<CartItemDto> cartItemDtoSet =  restTemplate.getForObject("http://localhost:9191/customers/" + customerId, Set.class);
+		Set<CartItemDto> cartItemDtoSet =  restTemplate.getForObject("http://customer-service/customers/" + customerId, Set.class);
 		processOrder(cartItemDtoSet);
 
-		String emptyCart = restTemplate.getForObject("http://localhost:9191/customers/deleteCart/" + customerId, String.class);
+		String emptyCart = restTemplate.getForObject("http://customer-service/customers/deleteCart/" + customerId, String.class);
 		return emptyCart;
 	}
 
